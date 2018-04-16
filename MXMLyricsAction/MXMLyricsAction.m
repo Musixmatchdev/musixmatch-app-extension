@@ -188,12 +188,23 @@ NSString *musixmatchAppStoreAppID = @"448278467";
         [self setHostViewController:viewController];
         
         if (showAlertBeforeAppStore) {
-            UIAlertView *storeAlert = [[UIAlertView alloc] initWithTitle:@"Musixmatch app is required"
-                                                                 message:@"To read the lyrics you need to install Musixmatch from the AppStore."
-                                                                delegate:self
-                                                       cancelButtonTitle:@"No, thanks"
-                                                       otherButtonTitles:@"Get the app", nil];
-            [storeAlert show];
+            UIAlertController *storeAlert = [UIAlertController alertControllerWithTitle:@"Musixmatch app is required"
+                                                                                message:@"To read the lyrics you need to install Musixmatch from the AppStore."
+                                                                         preferredStyle:UIAlertControllerStyleAlert];
+            
+            [storeAlert addAction:[UIAlertAction actionWithTitle:@"No, thanks"
+                                                             style:UIAlertActionStyleCancel
+                                                           handler:^(UIAlertAction * _Nonnull action) {
+                                                           }]];
+            [storeAlert addAction:[UIAlertAction actionWithTitle:@"Get the app"
+                                                           style:UIAlertActionStyleDefault
+                                                         handler:^(UIAlertAction * _Nonnull action) {
+                                                             [self openAppStore];
+                                                         }]];
+            [viewController presentViewController:storeAlert
+                                         animated:YES
+                                       completion:nil];
+            
         }else {
             [self openAppStore];
         }
@@ -252,16 +263,6 @@ NSString *musixmatchAppStoreAppID = @"448278467";
 
 - (void)productViewControllerDidFinish:(SKStoreProductViewController *)viewController {
     [viewController dismissViewControllerAnimated:YES completion:nil];
-}
-
-#pragma mark - UIAlertView Delegate
-
-- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex {
-    
-    if (buttonIndex==1) {
-        [self openAppStore];
-    }
-    
 }
 
 @end

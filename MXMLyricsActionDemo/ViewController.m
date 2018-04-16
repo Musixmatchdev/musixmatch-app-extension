@@ -108,14 +108,14 @@
                          if (!swtch.isOn) {
                              
                              [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleDefault];
-                             titleTrack.textColor = artist.textColor = album.textColor = style.textColor = [UIColor blackColor];
+                             self->titleTrack.textColor = self->artist.textColor = self->album.textColor = self->style.textColor = [UIColor blackColor];
                              
                              [self.view setBackgroundColor:[UIColor whiteColor]];
                              
                          }else {
                              
                              [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent];
-                             titleTrack.textColor = artist.textColor = album.textColor = style.textColor = [UIColor whiteColor];
+                             self->titleTrack.textColor = self->artist.textColor = self->album.textColor = self->style.textColor = [UIColor whiteColor];
                              
                              [self.view setBackgroundColor:[UIColor colorWithWhite:0.1f alpha:1.0f]];
                              
@@ -228,7 +228,7 @@
         NSTimeInterval progress = [[MPMusicPlayerController systemMusicPlayer] currentPlaybackTime];
         NSTimeInterval duration = [[MPMusicPlayerController systemMusicPlayer] nowPlayingItem].playbackDuration;
         if ( progress >=0.0 && duration>0.0) {
-            [trackProgress setValue: progress / duration animated:YES];
+            [self->trackProgress setValue: progress / duration animated:YES];
             [self playerUpdateInfo];
         }
     });
